@@ -1,0 +1,91 @@
+CELL 1
+CELL 3
+list perfumes with notes: 209 | all Fragrantica perfumes with notes: 1780
+{'Floral': 61, 'Oriental': 51, 'Woody': 38, 'Aromatic': 24, 'Citrus': 11, nan: 10, 'Chypre': 10, 'Leather': 4}
+CELL 5
+list items: 216 | brand-site (not Fragrantica): 3
+Fragrantica items: 213 | unique pages: 206 | duplicate entries: 7
+other releases of listed names flagged in the scrape file: 3
+=> pages analysed: 209 (check: 209 )
+            Brand            Perfume Name
+Bath & Body Works          Into the Night
+Bath & Body Works Japanese Cherry Blossom
+             Dior             Oud Ispahan
+CELL 7
+perfumes 209 | distinct notes 356 | mean notes per perfume 9.9
+generic (>=20% of perfumes): ['Amber', 'Bergamot', 'Cedar', 'Jasmine', 'Musk', 'Patchouli', 'Rose', 'Sandalwood', 'Vanilla', 'Vetiver']
+[('Bergamot', 37.8), ('Musk', 37.3), ('Patchouli', 34.0), ('Amber', 33.5), ('Sandalwood', 33.5), ('Jasmine', 33.0), ('Vanilla', 26.8), ('Rose', 24.4), ('Cedar', 24.4), ('Vetiver', 24.4), ('Lemon', 15.3), ('Mandarin Orange', 15.3), ('Tonka Bean', 13.9)]
+eligible notes (>=5 perfumes, non-generic): 89
+CELL 9
+k=1: nodes  89 edges  1620 density 0.414
+k=2: nodes  89 edges   649 density 0.166
+k=3: nodes  76 edges   268 density 0.094
+k=4: nodes  45 edges    99 density 0.100
+k=6: nodes  20 edges    23 density 0.121
+k=8: nodes   3 edges     2 density 0.667
+rule-selected k: (0.0010526315789473745, 6, 0.12105263157894737, 20, 23)
+CELL 11
+N=209 minf=5 primary k=6 (density 0.121) nodes=20 edges=23 sweep=[3, 6, 8]
+generic: ['Amber', 'Bergamot', 'Cedar', 'Jasmine', 'Musk', 'Patchouli', 'Rose', 'Sandalwood', 'Vanilla', 'Vetiver']
+note                   bc_rk fr_rk gap  P(top10) bridge stable value
+Lemon                      1     1   +0    0.87   True   True   False
+Mandarin Orange            2     2   +0    0.69   True   False  False
+Tonka Bean                 3     3   +0    0.65   True   False  False
+Orange Blossom             4     7   +3    0.65   True   False  False
+Oakmoss                    5     6   +1    0.76   True   False  False
+Peach                      6    16  +10    0.24   True   False  True
+Incense                    7    11   +4    0.54   True   False  False
+Orange                    21    24   +3    0.15   False  False  False
+Nutmeg                    21    15   -6    0.43   False  False  False
+Pear                      21    12   -9    0.24   False  False  False
+Saffron                   21    30   +9    0.16   False  False  True
+Coriander                 21    22   +1    0.18   False  False  False
+Lavender                  21     5  -16    0.30   False  False  False
+Leather                   21    10  -11    0.31   False  False  False
+Labdanum                  21    29   +8    0.13   False  False  True
+Oud                       21    31  +10    0.04   False  False  True
+Cinnamon                  21    19   -2    0.20   False  False  False
+Pink Pepper               21     9  -12    0.32   False  False  False
+Rosemary                  21    34  +13    0.10   False  False  True
+Lily-of-the-Valley        21     4  -17    0.65   False  False  False
+NO ANCHOR QUALIFIES -> FALLBACK most stable bridge: Lemon (P=0.87)
+CELL 13
+raw bridges (bc>0): ['Lemon', 'Mandarin Orange', 'Tonka Bean', 'Orange Blossom', 'Oakmoss', 'Peach', 'Incense']
+NPMI bridges      : ['Mandarin Orange', 'Lemon', 'Orange Blossom', 'Peach', 'Tonka Bean', 'Oakmoss', 'Coriander', 'Nutmeg', 'Incense']
+raw bridges also bridges under NPMI: 7 of 7
+k 3 ['Mandarin Orange', 'Lemon', 'Orange Blossom', 'Lily-of-the-Valley', 'Tonka Bean', 'Oakmoss']
+k 4 ['Lemon', 'Oakmoss', 'Lily-of-the-Valley', 'Mandarin Orange', 'Orange Blossom', 'Incense']
+k 6 ['Lemon', 'Mandarin Orange', 'Tonka Bean', 'Orange Blossom', 'Oakmoss', 'Peach']
+k 8 ['Lemon']
+generic cut 0.15 ['Orange Blossom', 'Tonka Bean', 'Incense']
+generic cut 0.25 ['Vetiver', 'Cedar', 'Rose', 'Lavender', 'Saffron', 'Incense']
+Spearman(betweenness, frequency) on graph nodes: 0.66
+notes with betweenness > 0: 7 of 20
+components: [13, 3, 2, 2] | nodes 20 edges 23
+CELL 15
+N=1780 minf=36 primary k=10 (density 0.167) nodes=80 edges=529 sweep=[7, 10, 12]
+generic: ['Amber', 'Bergamot', 'Jasmine', 'Musk', 'Patchouli', 'Rose', 'Sandalwood', 'Vanilla']
+note                   bc_rk fr_rk gap  P(top10) bridge stable value
+Cedar                      1     1   +0    1.00   True   True   False
+Vetiver                    2     2   +0    0.96   True   True   False
+Orange Blossom             3     4   +1    1.00   True   True   False
+Tonka Bean                 4     5   +1    0.74   True   False  False
+Mandarin Orange            5     3   -2    0.91   True   True   False
+Grapefruit                 6     9   +3    0.64   True   False  False
+Violet                     7    14   +7    0.40   True   False  True
+Iris                       8     7   -1    0.39   True   False  False
+Lavender                   9    10   +1    0.59   True   False  False
+Peach                     10    32  +22    0.10   True   False  True
+Lily-of-the-Valley        11    13   +2    0.36   False  False  False
+Pink Pepper               12     6   -6    0.68   False  False  False
+Leather                   13    11   -2    0.30   False  False  False
+Lemon                     14     8   -6    0.18   False  False  False
+Saffron                   15    22   +7    0.10   False  False  True
+Peony                     16    19   +3    0.07   False  False  False
+Plum                      17    58  +41    0.00   False  False  True
+Cinnamon                  18    27   +9    0.03   False  False  True
+Cardamom                  19    12   -7    0.18   False  False  False
+Benzoin                   20    20   +0    0.07   False  False  False
+NO ANCHOR QUALIFIES -> FALLBACK most stable bridge: Orange Blossom (P=1.00)
+MANIFEST_IDENTICAL True
+SUPPLEMENTED_IN_209 11

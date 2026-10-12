@@ -1,0 +1,10 @@
+pandas
+numpy
+networkx
+scipy
+openpyxl
+matplotlib
+ipython
+ipykernel
+jupyter
+nbconvert
