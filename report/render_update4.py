@@ -62,7 +62,7 @@ def render(path):
         ['<b>Sources</b>','Fragrantica collected using Selenium; notes manually supplemented from Parfumo for <b>11 of 209 perfumes</b>.'],
         ['<b>Period</b>','30 Aug-12 Oct 2026.'],
         ['<b>Volume</b>',f'<b>{P["N"]}</b> perfumes, {P["notes"]} notes; wider set: <b>1,780</b>. URL manifest in repo.'],
-        ['<b>Access</b>','Fragrantica <link href="https://www.fragrantica.com/terms-of-service.phtml" color="#125687">ToS</link> and Parfumo <link href="https://www.parfumo.com/legal-notice" color="#125687">Legal Notice</link> reviewed; raw source data are not redistributed. Website permission for this project has not been confirmed.'],
+        ['<b>Access</b>','Fragrantica <link href="https://www.fragrantica.com/terms-of-service.phtml" color="#125687">ToS</link> 5.3 restricts automated access; Parfumo <link href="https://www.parfumo.com/legal-notice" color="#125687">Legal Notice</link> limits copying to private use (limitations). No written permission; raw source data are not redistributed.'],
         ['<b>Sampling</b>','Purposive list; Floral 61 vs Leather 4. Not a market sample; supplements are not triangulation.'],
     ],M,left,COL)
     right=table(c,[

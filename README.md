@@ -17,7 +17,7 @@ No note meets every criterion in the primary corpus, the wider corpus, the NPMI 
 
 The author confirmed collection with Selenium from **30 August to 12 October 2026**. Fragrantica data were collected using Selenium. Notes were manually supplemented from Parfumo for 11/209 primary records; the wider workbook contains 36/1,780 supplemented records. This is supplementation, not independent triangulation. Exact input and manifest SHA256 hashes are saved in the results JSON. Collection dates are author-reported, not independently timestamp-verified.
 
-Fragrantica ToS and Parfumo Legal Notice reviewed; raw source data are not redistributed. Website permission for this project has not been confirmed. The reviewed provisions and source links are documented in [source review](docs/tos_evidence.md). No new scraping is performed by this repository.
+Fragrantica ToS and Parfumo Legal Notice reviewed: section 5.3 restricts automated access; the Parfumo notice limits copying to private, non-commercial use. No written website permission has been established; raw source data are not redistributed. The reviewed provisions and source links are documented in [source review](docs/tos_evidence.md). No new scraping is performed by this repository.
 
 Raw workbooks, scraped page contents and credentials are not included. To rerun, use a locally accessible workbook you are entitled to use. The versioned URL manifest selects the 209 records without requiring the separate collection-list workbook.
 
