@@ -2,7 +2,7 @@
 
 Which note should founder Palaloy use as the first ScentSelf test anchor?
 
-- [One-page report (PDF)](report/MADT7202_MidTerm_Palaloy_Update4.pdf)
+- [One-page report (PDF)](report/MADT7202_MidTerm_Palaloy_Revised.pdf)
 - [Executed notebook](notebooks/analysis.ipynb)
 - [Computed results and sensitivity checks](results/update4_summary.json)
 - [Method amendment](#method-amendment---13-october-2026)
@@ -17,7 +17,7 @@ No note meets every criterion in the primary corpus, the wider corpus, the NPMI 
 
 The author confirmed collection with Selenium from **30 August to 12 October 2026**. The primary workbook combines Fragrantica with Parfumo note supplements in 11/209 primary records (36/1,780 wider records). This is supplementation, not independent triangulation. Exact input and manifest SHA256 hashes are saved in the results JSON. Collection dates are author-reported, not independently timestamp-verified.
 
-**Source permission remains unresolved.** Fragrantica ToS section 5.3 restricts unapproved automated access; written permission was not established. Parfumo ToS were not reviewed in this analysis, and supplement permission was not established either. Coursework use and not redistributing raw data do not grant permission. The assignment's permitted-source requirement is not yet satisfied. Resolve permission or replace the data and rerun before treating this as a compliant final submission. No new scraping is performed by this repository.
+**Source permission remains unresolved.** Fragrantica ToS section 5.3 restricts unapproved automated access; written permission was not established. Parfumo Legal Notice and Community Rules were reviewed on 13 October 2026. The notice permits private, non-commercial copies and requires consent for exploitation beyond copyright limits. This does not establish permission for this project; supplement permission remains unresolved. See [source review](docs/tos_evidence.md). Coursework use and not redistributing raw data do not grant permission. The assignment's permitted-source requirement is not yet satisfied. Resolve permission or replace the data and rerun before treating this as a compliant final submission. No new scraping is performed by this repository.
 
 Raw workbooks, scraped page contents and credentials are not included. To rerun, use a locally accessible workbook you are entitled to use. The versioned URL manifest selects the 209 records without requiring the separate collection-list workbook.
 
@@ -72,4 +72,4 @@ Palaloy selects Lemon as a provisional control on 13 October, without a differen
 
 ## Project independence
 
-The author stated that ScentSelf is an individual IS, not a team project. The team capstone industry has not yet been provided, so the separate-industry requirement is not asserted as verified. Being an individual IS alone does not establish a different domain.
+The author stated that ScentSelf is an individual IS, not a team project. The author confirmed that the team has not yet selected its capstone topic. Industry separation will be checked once the team topic is finalized; it cannot yet be verified.

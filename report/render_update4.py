@@ -62,7 +62,7 @@ def render(path):
         ['<b>Sources</b>','Fragrantica (Selenium); Parfumo fills notes for <b>11 of 209 perfumes</b>. Parsed offline.'],
         ['<b>Period</b>','30 Aug-12 Oct 2026.'],
         ['<b>Volume</b>',f'<b>{P["N"]}</b> perfumes, {P["notes"]} notes; wider set: <b>1,780</b>. URL manifest in repo.'],
-        ['<b>Access</b>','Fragrantica: no written permission; <link href="https://www.fragrantica.com/terms-of-service.phtml" color="#125687">ToS 5.3</link> restricts automation. Parfumo: ToS not reviewed; no permission established.'],
+        ['<b>Access</b>','Fragrantica: no written permission; <link href="https://www.fragrantica.com/terms-of-service.phtml" color="#125687">ToS 5.3</link> restricts automation. Parfumo: <link href="https://www.parfumo.com/legal-notice" color="#125687">private/non-commercial copies</link> allowed; project permission unconfirmed.'],
         ['<b>Sampling</b>','Purposive list; Floral 61 vs Leather 4. Not a market sample; supplements are not triangulation.'],
     ],M,left,COL)
     right=table(c,[
@@ -97,4 +97,4 @@ def render(path):
     return {'bottom_y':bottom,'margin_pt':M,'pages':1,'font_min_pt':10}
 
 if __name__=='__main__':
-    render(sys.argv[1] if len(sys.argv)>1 else ROOT/'report/MADT7202_MidTerm_Palaloy_Update4.pdf')
+    render(sys.argv[1] if len(sys.argv)>1 else ROOT/'report/MADT7202_MidTerm_Palaloy_Revised.pdf')

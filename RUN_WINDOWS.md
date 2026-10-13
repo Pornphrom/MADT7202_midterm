@@ -13,7 +13,7 @@ Set-Location ..
 .\.venv\Scripts\python.exe -m unittest discover -s tests
 ```
 
-Use your actual permitted workbook path. No separate SCENT_LIST workbook is needed: `data/list_209_urls.csv` is the selection manifest. Notebook execution writes JSON, CSV and figure files; rendering writes `report/MADT7202_MidTerm_Palaloy_Update4.pdf`. All data remains local. The source-permission issue described in README is unresolved.
+Use your actual permitted workbook path. No separate SCENT_LIST workbook is needed: `data/list_209_urls.csv` is the selection manifest. Notebook execution writes JSON, CSV and figure files; rendering writes `report/MADT7202_MidTerm_Palaloy_Revised.pdf`. All data remains local. The source-permission issue described in README is unresolved.
 
 Repository: https://github.com/Pornphrom/MADT7202_midterm
 
