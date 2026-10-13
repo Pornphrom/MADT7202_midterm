@@ -21,8 +21,10 @@ def draw(sub,out="fig_page.png"):
           lift=(c/tot)/(base[f]/nv)
           if c>=min_in and lift>bl: best,bl=f,lift
       return best if bl>=min_lift else "Mixed"
-  bc,br,fr,G,fq,gen=dr.analyse(sets,K,5)
-  grp={n:(dominant(n) if dominant(n) in ("Floral","Oriental","Woody") else "Other / mixed") for n in G}
+  analysis=dr.analyse(sets,K,5)
+  bc,G=analysis['bc'],analysis['graph']
+  grp={n:('Bridge' if bc[n]>1e-12 else 'Zero betweenness') for n in G}
+  colors={'Bridge':'#2876c7','Zero betweenness':'#b9b8b2'}
   SHORT={"Lily-of-the-Valley":"Lily-of-the-Valley"}
   comps=sorted(nx.connected_components(G),key=len,reverse=True)
   pos={}
@@ -34,17 +36,17 @@ def draw(sub,out="fig_page.png"):
       if len(c)==2: pc={sg[0]:np.array([-0.32,0]),sg[1]:np.array([0.32,0])}
       else: pc={sg[0]:np.array([-0.3,-0.16]),sg[1]:np.array([0.3,-0.16]),sg[2]:np.array([0.0,0.18])}
       for n,v in pc.items(): pos[n]=np.array([cx,cy])+v
-  fig,ax=plt.subplots(figsize=(7.05,2.72),dpi=300); fig.patch.set_facecolor(SURF); ax.set_facecolor(SURF)
+  fig,ax=plt.subplots(figsize=(7.0,2.4),dpi=300); fig.patch.set_facecolor(SURF); ax.set_facecolor(SURF)
   mx=max(d["count"] for *_,d in G.edges(data=True))
   for a,b,d in G.edges(data=True):
       ax.plot([pos[a][0],pos[b][0]],[pos[a][1],pos[b][1]],color="#bdbcb5",lw=0.6+2.2*d["count"]/mx,alpha=0.75,zorder=1,solid_capstyle="round")
-  for n in G: ax.scatter(*pos[n],s=45+1300*bc[n],c=COL[grp[n]],edgecolors="white",linewidths=1.0,zorder=2)
+  for n in G: ax.scatter(*pos[n],s=45+1300*bc[n],c=colors[grp[n]],edgecolors="white",linewidths=1.0,zorder=2)
   ax.set_xlim(-3.5,4.9); ax.set_ylim(-1.2,1.22); ax.axis("off")
   fig.subplots_adjust(left=0.01,right=0.99,top=0.99,bottom=0.11)
   fig.canvas.draw()
   P={n:ax.transData.transform(pos[n])*72/fig.dpi for n in G}
   rad={n:((45+1300*bc[n])**0.5)/2 for n in G}
-  FS=10; placed=[]
+  FS=10.2; placed=[]
   def rect(n,txt,d):
       w=len(txt)*FS*0.53; h=FS*1.2; r=rad[n]+2.5; dx,dy=d
       cx=P[n][0]+dx*(r+(w/2 if abs(dx)>0.3 else 0)); cy=P[n][1]+dy*(r+h/2)
@@ -53,7 +55,7 @@ def draw(sub,out="fig_page.png"):
   DIRS=[(1,0),(-1,0),(0,1),(0,-1),(0.7,0.7),(-0.7,0.7),(0.7,-0.7),(-0.7,-0.7)]
   for n in sorted(G,key=lambda x:-bc[x]):
       txt=SHORT.get(n,n); best=None
-      OVR={'Oakmoss':[(0,1)],'Lemon':[(-0.7,0.7)]}
+      OVR={'Oakmoss':[(0,1)],'Lemon':[(1,0)]}
       for d in OVR.get(n,DIRS):
           R=rect(n,txt,d); sc=0
           for m in G:
@@ -71,7 +73,8 @@ def draw(sub,out="fig_page.png"):
       va="center" if abs(d[0])>0.3 else ("bottom" if d[1]>0 else "top")
       ax.annotate(txt,pos[n],xytext=(d[0]*r,d[1]*r),textcoords="offset points",ha=ha,va=va,fontsize=FS,color=INK,zorder=4)
   from matplotlib.lines import Line2D
-  h=[Line2D([0],[0],marker="o",color="white",markerfacecolor=c,markersize=7,label=k) for k,c in COL.items()]
+  h=[Line2D([0],[0],marker="o",color="white",markerfacecolor=c,markersize=7,label=k) for k,c in colors.items()]
   fig.legend(handles=h,loc="lower center",ncol=4,frameon=False,fontsize=10,handletextpad=0.2,columnspacing=1.4,bbox_to_anchor=(0.5,0.0))
   fig.savefig(out,facecolor=SURF)
   print(G.number_of_nodes(),G.number_of_edges())
+  plt.close(fig)

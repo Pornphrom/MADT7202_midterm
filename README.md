@@ -1,44 +1,51 @@
-# ScentSelf anchor-note analysis (MADT 7202 mid-term)
+# MADT7202 Midterm - ScentSelf anchor-note analysis (Update4)
 
-Question: which fragrance note should ScentSelf anchor its debut perfume on? Method: fragrance-note co-occurrence network (node = note, edge = two notes in the same perfume, weight = number of perfumes), generic notes (>=20% of perfumes) excluded before ranking, betweenness compared with frequency, and a pre-set decision rule with brand-cluster bootstrap.
+Which note should founder Palaloy use as the first ScentSelf test anchor?
 
-## Data access (read this)
-Raw Fragrantica data are **not** included. The pages were collected with Selenium (~Jul 2026). Fragrantica's Terms of Service (effective 14 Jan 2026, section 5.3) prohibit automated access without written permission; none was requested. The data were used for coursework only and are not republished. `data/list_209_urls.csv` lists the 209 perfumes analysed so the pages can be inspected manually.
+- [One-page report (PDF)](report/MADT7202_MidTerm_Palaloy_Update4.pdf)
+- [Executed notebook](notebooks/analysis.ipynb)
+- [Computed results and sensitivity checks](results/update4_summary.json)
+- [What changed and what remains unresolved](review/UPDATE4_CHANGES.md)
+- [Windows instructions](RUN_WINDOWS.md)
 
-See `docs/tos_evidence.md` for the clauses relied on (add your own dated screenshot there).
+## Current finding
 
-## Run
-Place the two local workbooks outside the repo and point to them:
+No note meets every criterion in the primary corpus, the wider corpus, the NPMI check, or the corpus excluding supplemented records. On the main 209-perfume graph, Lemon is an experimental control only: stability 87.3%, rank gap 0.5. Peach has gap 6.5 but stability 25.3%. The wider corpus changes the fallback to Orange Blossom; the Lemon recommendation is not market-wide.
+
+## Data and permission status
+
+The author confirmed collection with Selenium from **30 August to 12 October 2026**. The primary workbook combines Fragrantica with Parfumo note supplements in 11/209 primary records (36/1,780 wider records). This is supplementation, not independent triangulation. Exact input and manifest SHA256 hashes are saved in the results JSON. Collection dates are author-reported, not independently timestamp-verified.
+
+**Source permission remains unresolved.** Fragrantica ToS section 5.3 restricts unapproved automated access; written permission was not established. Parfumo supplement permission was not established either. Coursework use and not redistributing raw data do not grant permission. The assignment's permitted-source requirement is not yet satisfied. Resolve permission or replace the data and rerun before treating this as a compliant final submission. No new scraping is performed by this repository.
+
+Raw workbooks, scraped page contents and credentials are not included. To rerun, use a locally accessible workbook you are entitled to use. The versioned URL manifest selects the 209 records without requiring the separate collection-list workbook.
+
+## Reproduce
+
+Install `requirements.txt` in a fresh environment and set `SCENT_DATA` to the local combined workbook. `requirements-tested.txt` records the numerical and rendering package versions used for this revision (Python version is in the results JSON).
+
+```bash
+python -m pip install -r requirements.txt
+export SCENT_DATA=/absolute/path/combined_scrape_preview_metadata_filled.xlsx
+cd notebooks
+jupyter nbconvert --to notebook --execute analysis.ipynb --output analysis.rerun.ipynb --ExecutePreprocessor.timeout=1800
+cd ..
+python report/render.py
+python -m unittest discover -s tests
 ```
-export SCENT_DATA=/path/combined_scrape_preview_metadata_filled.xlsx
-export SCENT_LIST=/path/ScentSelf_Collection_List_200.xlsx
-cd notebooks && jupyter nbconvert --to notebook --execute analysis.ipynb
-```
-`notebooks/analysis.ipynb` is already executed (outputs saved). Bootstrap seed = 7, B = 300.
 
-## Files
-- `src/decision_rule.py` — frozen decision rule (frozen 4 Oct 2026; amended 12 Oct 2026, see below)
-- `src/netlib.py`, `src/notes_clean.py`, `src/corpus.py`, `src/figure.py` — graph, cleaning, loading, figure
-- `results/` — rule output on the 209 list perfumes, the 1,780-perfume robustness set and the earlier 504-perfume exploratory file; figure
-- Note: the force-directed layout in the figure can differ slightly between runs; the numbers do not.
+Run the notebook from the repository root or `notebooks/`. It writes current JSON and metrics CSVs and creates the figure. `report/render.py` renders the PDF from those computed results. No Playwright or browser is required. The report link points to this repository.
 
-## Amendment log
-12 Oct 2026: notes with betweenness = 0 were previously ranked alphabetically and could pass the top-10 test spuriously; they now share the bottom rank and cannot count as bridges. No verdict changed.
+## Method
 
-## Limitations
-Notes are declared pyramids on Fragrantica, not formulations; the 209-perfume list covers scent families unevenly; the pruned graph is small (20 nodes, 23 edges at k=6) and sensitive to the cutoff.
+Undirected note co-occurrence within a whole perfume; raw shared-perfume count as edge strength; shortest-path distance 1/strength. Exclude notes in >=20% of records as high-prevalence controls, then require frequency >=max(5, round(0.02*N)). Remove isolates after edge pruning. The cutoff is nearest to density 0.12 among k=3..10, a heuristic inherited from exploratory work. The wider corpus does not reach the target within that range.
 
-## Report source (one-page PDF)
+Both prevalence and betweenness ranks use the surviving graph nodes. Ties use average rank; betweenness is rounded to 12 decimals for ranking. Zero betweenness is never a bridge. Qualification requires positive top-10 betweenness, rank gap >=5, top-10 in >=80% of 300 whole-brand bootstrap resamples (seed 7), and positive top-10 status across the cutoff sweep. An absent node counts as failure. Bootstrap samples draw as many brands as the original unique-brand count, with replacement and full cluster multiplicity; sample size varies. The frequency floor is recalculated for each sample; the absolute edge cutoff stays fixed. This is an exploratory heuristic, not a statistical test of centrality beyond popularity.
 
-`report/report.html` is the HTML source of the submitted one-page PDF and `report/render.py` renders it with Playwright/Chromium
-(`pip install playwright`, then `python render.py <repo-url>`). `report/fig_page.png` is the figure produced by `src/figure.py`
-(also in `results/`). The numbers in the report come from `notebooks/analysis.ipynb` and `results/*.txt`.
+NPMI uses the primary raw cutoff and NPMI >0.1, with distance 1/NPMI, and reruns the full rule. Removing supplemented records is a sensitivity check, not reconstruction of their original note fields. The wider corpus overlaps the primary corpus, so it is not independent confirmation.
 
-## Notebook and review status
+The pilot dates, 20 testers and 15-of-20 advance threshold in the report are a **proposed future plan**, conditional on resolving data permission/reanalysis. They are not measured results or a claimed completed study.
 
-- [Open the executed analysis notebook](notebooks/analysis.ipynb)
-- [Windows run instructions](RUN_WINDOWS.md)
-- [Rubric review and remaining corrections](review/MADT7202_Rubric_Review_TH.md)
-- [Independent numerical rerun, 12 October 2026](review/numerical_rerun_2026-10-12.txt)
+## Revision history
 
-The original numerical analysis is preserved. Both corpus runs were independently reproduced; the original figure was inspected in the supplied report. The review identifies unresolved source-permission and provenance issues, ranking-universe differences, and limits to the robustness claim. Publication does not resolve these issues. Raw workbooks are not distributed. The repository contains the Update3 report source, not a revised final submission.
+Update4 (13 October 2026) corrects the ranking population, tie handling and bootstrap procedure after review. It does not claim preregistration. Historical Update3 outputs and the earlier review are under `archive/update3/`; the full Update3 source is in Git history. Read `review/UPDATE4_CHANGES.md` for limitations that remain.

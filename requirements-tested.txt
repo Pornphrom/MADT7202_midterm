@@ -1,0 +1,9 @@
+# Numerical/rendering dependencies used on Python 3.12.14
+pandas==3.0.1
+numpy==2.5.4
+networkx==3.7
+scipy==1.18.1
+openpyxl==3.1.5
+matplotlib==3.11.2
+reportlab==4.4.9
+nbformat==5.11.1

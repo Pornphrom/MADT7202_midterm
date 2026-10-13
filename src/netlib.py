@@ -1,7 +1,7 @@
 import itertools, collections, math
 import networkx as nx
 import numpy as np
-from scipy.stats import spearmanr
+from scipy.stats import spearmanr, rankdata
 
 
 def counts(sets):
@@ -19,6 +19,8 @@ def npmi(N, freq, pair, a, b):
     if w == 0:
         return -1.0
     pab = w / N
+    if pab >= 1:
+        return 0.0  # Degenerate constant pair carries no discrimination.
     pmi = math.log(pab / ((freq[a] / N) * (freq[b] / N)))
     return pmi / (-math.log(pab))
 
@@ -53,8 +55,9 @@ def betweenness(G):
 
 
 def rank(d):
-    items = sorted(d.items(), key=lambda x: (-x[1], x[0]))
-    return {k: i + 1 for i, (k, _) in enumerate(items)}
+    keys = sorted(d)
+    ranks = rankdata([-d[k] for k in keys], method='average')
+    return {k: float(v) for k, v in zip(keys, ranks)}
 
 
 def sp(a, b, keys):

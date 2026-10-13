@@ -1,0 +1,81 @@
+note,frequency,frequency_rank,betweenness,betweenness_rank,rank_gap,bootstrap_hits,bootstrap_runs,bootstrap_p,bridge,stable,sweep_all,passed
+Cedar,301,1.0,0.44709509899383315,1.0,0.0,295,300,0.9833333333333333,True,True,True,False
+Vetiver,299,2.0,0.3729308666017527,2.0,0.0,282,300,0.94,True,True,True,False
+Orange Blossom,206,4.0,0.12690684842583577,3.0,1.0,297,300,0.99,True,True,True,False
+Tonka Bean,195,5.0,0.07465108730931516,4.0,1.0,217,300,0.7233333333333334,True,False,True,False
+Mandarin Orange,232,3.0,0.05582603050957481,5.0,-2.0,260,300,0.8666666666666667,True,True,True,False
+Grapefruit,167,9.0,0.05436546575787082,6.0,3.0,202,300,0.6733333333333333,True,False,True,False
+Violet,132,14.5,0.03018500486854917,7.0,7.5,118,300,0.3933333333333333,True,False,False,False
+Iris,171,7.5,0.02661473547549497,8.0,-0.5,97,300,0.3233333333333333,True,False,True,False
+Lavender,161,10.0,0.02531645569620253,9.0,1.0,162,300,0.54,True,False,True,False
+Peach,91,31.5,0.025154170723790975,10.0,21.5,16,300,0.05333333333333334,True,False,False,False
+Lily-of-the-Valley,133,13.0,0.024991885751379422,11.0,2.0,101,300,0.33666666666666667,False,False,False,False
+Pink Pepper,189,6.0,0.006004543979227523,12.0,-6.0,193,300,0.6433333333333333,False,False,False,False
+Leather,157,11.0,0.00486854917234664,13.0,-2.0,93,300,0.31,False,False,False,False
+Lemon,171,7.5,0.0016228497241155468,14.5,-7.0,48,300,0.16,False,False,False,False
+Saffron,113,22.0,0.0016228497241155468,14.5,7.5,38,300,0.12666666666666668,False,False,False,False
+Peony,118,19.0,0.0012982797792924375,16.0,3.0,24,300,0.08,False,False,False,False
+Plum,50,57.5,0.0008114248620577734,17.0,40.5,0,300,0.0,False,False,False,False
+Cinnamon,99,27.0,0.0006491398896462187,18.0,9.0,22,300,0.07333333333333333,False,False,False,False
+Cardamom,138,12.0,0.0004868549172346641,19.0,-7.0,59,300,0.19666666666666666,False,False,False,False
+Benzoin,117,20.5,0.0003245699448231094,21.5,-1.0,29,300,0.09666666666666666,False,False,False,False
+Incense,124,17.0,0.0003245699448231094,21.5,-4.5,57,300,0.19,False,False,False,False
+Oakmoss,106,24.0,0.0003245699448231094,21.5,2.5,22,300,0.07333333333333333,False,False,False,False
+Orange,109,23.0,0.0003245699448231094,21.5,1.5,2,300,0.006666666666666667,False,False,False,False
+Aldehydes,67,41.5,0.0,52.0,-10.5,0,300,0.0,False,False,False,False
+Almond,47,63.5,0.0,52.0,11.5,0,300,0.0,False,False,False,False
+Ambergris,94,29.0,0.0,52.0,-23.0,14,300,0.04666666666666667,False,False,False,False
+Amberwood,48,60.5,0.0,52.0,8.5,0,300,0.0,False,False,False,False
+Ambrette,57,50.0,0.0,52.0,-2.0,0,300,0.0,False,False,False,False
+Ambroxan,64,45.0,0.0,52.0,-7.0,5,300,0.016666666666666666,False,False,False,False
+Apple,56,51.0,0.0,52.0,-1.0,0,300,0.0,False,False,False,False
+Basil,46,66.0,0.0,52.0,14.0,0,300,0.0,False,False,False,False
+Bitter Orange,39,76.0,0.0,52.0,24.0,2,300,0.006666666666666667,False,False,False,False
+Black Currant,88,33.0,0.0,52.0,-19.0,10,300,0.03333333333333333,False,False,False,False
+Black Pepper,54,52.0,0.0,52.0,0.0,0,300,0.0,False,False,False,False
+Bulgarian Rose,37,78.0,0.0,52.0,26.0,0,300,0.0,False,False,False,False
+Caramel,52,54.0,0.0,52.0,2.0,1,300,0.0033333333333333335,False,False,False,False
+Cashmere Wood,41,74.0,0.0,52.0,22.0,0,300,0.0,False,False,False,False
+Cedarwood,64,45.0,0.0,52.0,-7.0,0,300,0.0,False,False,False,False
+Citruses,50,57.5,0.0,52.0,5.5,0,300,0.0,False,False,False,False
+Clary Sage,47,63.5,0.0,52.0,11.5,1,300,0.0033333333333333335,False,False,False,False
+Coconut,51,56.0,0.0,52.0,4.0,1,300,0.0033333333333333335,False,False,False,False
+Coffee,46,66.0,0.0,52.0,14.0,0,300,0.0,False,False,False,False
+Coriander,63,48.0,0.0,52.0,-4.0,0,300,0.0,False,False,False,False
+Cypress,44,70.5,0.0,52.0,18.5,1,300,0.0033333333333333335,False,False,False,False
+Freesia,81,36.0,0.0,52.0,-16.0,16,300,0.05333333333333334,False,False,False,False
+Geranium,100,26.0,0.0,52.0,-26.0,1,300,0.0033333333333333335,False,False,False,False
+Ginger,91,31.5,0.0,52.0,-20.5,1,300,0.0033333333333333335,False,False,False,False
+Green Notes,44,70.5,0.0,52.0,18.5,0,300,0.0,False,False,False,False
+Guaiac Wood,52,54.0,0.0,52.0,2.0,0,300,0.0,False,False,False,False
+Heliotrope,38,77.0,0.0,52.0,25.0,2,300,0.006666666666666667,False,False,False,False
+Honey,36,79.5,0.0,52.0,27.5,2,300,0.006666666666666667,False,False,False,False
+Jasmine Sambac,71,39.0,0.0,52.0,-13.0,2,300,0.006666666666666667,False,False,False,False
+Labdanum,84,34.0,0.0,52.0,-18.0,3,300,0.01,False,False,False,False
+Lime,63,48.0,0.0,52.0,-4.0,0,300,0.0,False,False,False,False
+Magnolia,67,41.5,0.0,52.0,-10.5,0,300,0.0,False,False,False,False
+Mint,63,48.0,0.0,52.0,-4.0,0,300,0.0,False,False,False,False
+Moss,48,60.5,0.0,52.0,8.5,0,300,0.0,False,False,False,False
+Myrrh,40,75.0,0.0,52.0,23.0,0,300,0.0,False,False,False,False
+Neroli,127,16.0,0.0,52.0,-36.0,14,300,0.04666666666666667,False,False,False,False
+Nutmeg,82,35.0,0.0,52.0,-17.0,0,300,0.0,False,False,False,False
+Olibanum,45,68.5,0.0,52.0,16.5,0,300,0.0,False,False,False,False
+Orchid,43,72.5,0.0,52.0,20.5,0,300,0.0,False,False,False,False
+Osmanthus,48,60.5,0.0,52.0,8.5,1,300,0.0033333333333333335,False,False,False,False
+Oud,117,20.5,0.0,52.0,-31.5,34,300,0.11333333333333333,False,False,False,False
+Pear,97,28.0,0.0,52.0,-24.0,34,300,0.11333333333333333,False,False,False,False
+Pepper,70,40.0,0.0,52.0,-12.0,2,300,0.006666666666666667,False,False,False,False
+Petitgrain,46,66.0,0.0,52.0,14.0,0,300,0.0,False,False,False,False
+Pineapple,45,68.5,0.0,52.0,16.5,0,300,0.0,False,False,False,False
+Praline,36,79.5,0.0,52.0,27.5,1,300,0.0033333333333333335,False,False,False,False
+Raspberry,74,38.0,0.0,52.0,-14.0,9,300,0.03,False,False,False,False
+Rosemary,43,72.5,0.0,52.0,20.5,3,300,0.01,False,False,False,False
+Sage,48,60.5,0.0,52.0,8.5,0,300,0.0,False,False,False,False
+Tobacco,66,43.0,0.0,52.0,-9.0,0,300,0.0,False,False,False,False
+Tuberose,93,30.0,0.0,52.0,-22.0,12,300,0.04,False,False,False,False
+Violet Leaf,52,54.0,0.0,52.0,2.0,2,300,0.006666666666666667,False,False,False,False
+Virginia Cedar,64,45.0,0.0,52.0,-7.0,0,300,0.0,False,False,False,False
+White Musk,132,14.5,0.0,52.0,-37.5,18,300,0.06,False,False,False,False
+Woodsy Notes,76,37.0,0.0,52.0,-15.0,1,300,0.0033333333333333335,False,False,False,False
+Woody Notes,105,25.0,0.0,52.0,-27.0,0,300,0.0,False,False,False,False
+Ylang-Ylang,120,18.0,0.0,52.0,-34.0,58,300,0.19333333333333333,False,False,False,False

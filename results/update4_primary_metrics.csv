@@ -1,0 +1,21 @@
+note,frequency,frequency_rank,betweenness,betweenness_rank,rank_gap,bootstrap_hits,bootstrap_runs,bootstrap_p,bridge,stable,sweep_all,passed
+Lemon,32,1.5,0.1608187134502924,1.0,0.5,262,300,0.8733333333333333,True,True,True,False
+Mandarin Orange,32,1.5,0.15204678362573099,2.0,-0.5,202,300,0.6733333333333333,True,False,False,False
+Tonka Bean,29,3.0,0.1111111111111111,3.0,0.0,189,300,0.63,True,False,False,False
+Orange Blossom,24,7.0,0.06432748538011696,4.0,3.0,192,300,0.64,True,False,False,False
+Oakmoss,26,5.5,0.017543859649122806,5.0,0.5,222,300,0.74,True,False,False,False
+Peach,17,12.5,0.008771929824561403,6.0,6.5,76,300,0.25333333333333335,True,False,False,False
+Incense,19,10.5,0.005847953216374269,7.0,3.5,138,300,0.46,True,False,False,False
+Cinnamon,15,14.0,0.0,14.0,0.0,44,300,0.14666666666666667,False,False,False,False
+Coriander,14,15.5,0.0,14.0,1.5,42,300,0.14,False,False,False,False
+Labdanum,13,17.5,0.0,14.0,3.5,42,300,0.14,False,False,False,False
+Lavender,26,5.5,0.0,14.0,-8.5,99,300,0.33,False,False,False,False
+Leather,21,9.0,0.0,14.0,-5.0,85,300,0.2833333333333333,False,False,False,False
+Lily-of-the-Valley,27,4.0,0.0,14.0,-10.0,184,300,0.6133333333333333,False,False,False,False
+Nutmeg,17,12.5,0.0,14.0,-1.5,129,300,0.43,False,False,False,False
+Orange,14,15.5,0.0,14.0,1.5,50,300,0.16666666666666666,False,False,False,False
+Oud,12,19.5,0.0,14.0,5.5,18,300,0.06,False,False,False,False
+Pear,19,10.5,0.0,14.0,-3.5,70,300,0.23333333333333334,False,False,False,False
+Pink Pepper,22,8.0,0.0,14.0,-6.0,101,300,0.33666666666666667,False,False,False,False
+Rosemary,12,19.5,0.0,14.0,5.5,33,300,0.11,False,False,False,False
+Saffron,13,17.5,0.0,14.0,3.5,55,300,0.18333333333333332,False,False,False,False

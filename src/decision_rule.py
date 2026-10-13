@@ -1,30 +1,14 @@
-"""FROZEN decision rule for the ScentSelf anchor-note question.
+"""Update4 exploratory rule, revised 13 October 2026 after review.
 
-Frozen on 2026-10-04 (amended 2026-10-12, see analyse(): zero-betweenness notes are not bridges), BEFORE the remaining collection-list items were scraped.
-Calibrated on the exploratory 504-perfume Step 2 Preview file (so the numbers
-below were chosen after seeing that file; the confirmatory run on the completed
-collection list must use them unchanged).
-
-A note is a "differentiating anchor" only if ALL of the following hold
-(note must be non-generic: appears in < GENERIC_THR of perfumes):
-  1. BRIDGE      betweenness rank <= TOP_N at the primary k
-  2. STABLE      in top-TOP_N in >= STABLE_P of brand-cluster bootstrap
-                 resamples AND in top-TOP_N at every k in the sweep
-  3. ADDED VALUE (frequency rank - betweenness rank) >= MIN_GAP at the primary k
-At most MAX_ANCHORS notes are returned (ordered by betweenness).
-If none qualifies -> FALLBACK: anchor on the most stable bridge note
-(highest bootstrap P(top-TOP_N)) and report that its position comes from
-popularity, not differentiation.
-
-k selection (fixed rule, not tuned to rankings): among k in K_CANDIDATES choose
-the one whose graph edge density is closest to TARGET_DENSITY (0.12 = the
-density at the primary k=8 on the exploratory file). Sweep = (k-3, k, k+2).
-min node frequency scales with corpus size: max(5, round(0.02 * N)).
+Both ranks use the same graph nodes. Average ranks resolve ties; zero
+betweenness never qualifies. Resample whole brands, without truncation.
+This revision is not a preregistered or independently confirmed analysis.
 """
-import collections, random, sys
-from notes_clean import load, perfume_note_sets
-from netlib import counts, generic_notes, build, betweenness, rank
+import collections
+import random
 import networkx as nx
+from notes_clean import perfume_note_sets
+from netlib import counts, generic_notes, build, betweenness, rank, sp
 
 GENERIC_THR = 0.20
 TOP_N = 10
@@ -32,97 +16,89 @@ STABLE_P = 0.80
 MIN_GAP = 5
 MAX_ANCHORS = 3
 TARGET_DENSITY = 0.12
-K_CANDIDATES = (3, 4, 5, 6, 7, 8, 9, 10)
+K_CANDIDATES = tuple(range(3, 11))
 BOOT_B = 300
 BOOT_SEED = 7
+EPS = 1e-12
 
-
-def analyse(sets, k, minf):
+def analyse(sets, k, minf=None, weight='raw', generic_thr=GENERIC_THR):
     N, freq, pair = counts(sets)
-    gen = generic_notes(N, freq, GENERIC_THR)
-    elig = [n for n, f in freq.items() if f >= minf and n not in gen]
-    G = build(N, freq, pair, elig, k, "raw")
-    G = G.subgraph([n for n in G if G.degree(n) > 0]).copy()
-    if G.number_of_edges() == 0:
-        return None
+    if not N:
+        raise ValueError('Empty corpus')
+    minf = max(5, round(0.02 * N)) if minf is None else minf
+    high = generic_notes(N, freq, generic_thr)
+    eligible = sorted(n for n, f in freq.items() if f >= minf and n not in high)
+    G = build(N, freq, pair, eligible, k, weight, npmi_thr=0.1)
+    G.remove_nodes_from(list(nx.isolates(G)))
     bc = betweenness(G)
-    fr = rank({n: freq[n] for n in elig})
-    # AMENDMENT 2026-10-12: notes with betweenness == 0 are not bridges. Rank only
-    # notes with bc > 0; zero-betweenness notes share the bottom rank (previously
-    # they were ordered alphabetically and could pass the 'top-10' test spuriously).
-    pos = rank({n: v for n, v in bc.items() if v > 1e-12})
-    bottom = len(G) + 1
-    br = {n: pos.get(n, bottom) for n in bc}
-    return bc, br, fr, G, freq, gen
+    br = rank({n: round(v, 12) for n, v in bc.items()})
+    fr = rank({n: freq[n] for n in G})
+    bridges = {n for n in G if bc[n] > EPS and br[n] <= TOP_N}
+    rho = sp(bc, {n: freq[n] for n in G}, sorted(G)) if len(G) > 1 and len(set(bc.values())) > 1 else None
+    return dict(N=N, minf=minf, k=k, graph=G, bc=bc, br=br, fr=fr,
+                freq=freq, excluded=sorted(high), eligible_count=len(eligible),
+                distinct_notes=len(freq), bridges=bridges, rho=rho)
 
-
-def choose_k(sets, minf):
-    best = None
+def choose_k(sets):
+    candidates = []
     for k in K_CANDIDATES:
-        r = analyse(sets, k, minf)
-        if r is None:
-            continue
-        G = r[3]
-        d = nx.density(G)
-        score = abs(d - TARGET_DENSITY)
-        if best is None or score < best[0]:
-            best = (score, k, d, G.number_of_nodes(), G.number_of_edges())
-    return best
+        a = analyse(sets, k)
+        if a['graph'].number_of_edges():
+            candidates.append((abs(nx.density(a['graph']) - TARGET_DENSITY), k))
+    if not candidates:
+        raise ValueError('No edges at any candidate cutoff')
+    return min(candidates)[1]
 
+def sample_brand_indices(groups, rng):
+    """Sample B whole clusters for B unique brands; preserve multiplicity."""
+    brands = sorted(groups)
+    selected = [rng.choice(brands) for _ in brands]
+    return [i for brand in selected for i in groups[brand]], selected
 
-def apply_rule(df, level=1, verbose=True):
-    sets = perfume_note_sets(df.reset_index(drop=True), level)
-    brands = df["Brand"].tolist()
-    N = len(sets)
-    minf = max(5, round(0.02 * N))
-    _, k, dens, nn, ne = choose_k(sets, minf)
-    sweep = [max(2, k - 3), k, k + 2]
-    bc, br, fr, G, freq, gen = analyse(sets, k, minf)
-    if verbose:
-        print(f"N={N} minf={minf} primary k={k} (density {dens:.3f}) nodes={nn} edges={ne} sweep={sweep}")
-        print("generic:", sorted(gen))
-    sweep_top = {}
-    for kk in sweep:
-        r = analyse(sets, kk, minf)
-        sweep_top[kk] = {n for n, rk in r[1].items() if rk <= TOP_N} if r else set()
-    by = collections.defaultdict(list)
-    for i, b in enumerate(brands):
-        by[b].append(i)
-    bl = list(by)
+def apply_rule(df, level=1, boot_b=BOOT_B, weight='raw', k=None):
+    df = df.sort_values('Fragrantica URL', kind='stable').reset_index(drop=True)
+    sets = perfume_note_sets(df, level)
+    k = choose_k(sets) if k is None else k
+    a = analyse(sets, k, weight=weight)
+    sweep = sorted(set([max(2, k-3), k, k+2]))
+    sweeps = {cut: analyse(sets, cut, weight=weight) for cut in sweep}
+    groups = collections.defaultdict(list)
+    for i, brand in enumerate(df['Brand'].fillna('[unknown brand]').astype(str)):
+        groups[brand].append(i)
     rng = random.Random(BOOT_SEED)
-    hit = collections.Counter()
-    for _ in range(BOOT_B):
-        idx = []
-        while len(idx) < N:
-            idx += by[rng.choice(bl)]
-        idx = idx[:N]
-        r = analyse([sets[i] for i in idx], k, minf)
-        if r is None:
-            continue
-        for n, rk in r[1].items():
-            if rk <= TOP_N:
-                hit[n] += 1
+    hits = collections.Counter()
+    sample_sizes = []
+    for _ in range(boot_b):
+        indices, _ = sample_brand_indices(groups, rng)
+        sample_sizes.append(len(indices))
+        b = analyse([sets[i] for i in indices], k, weight=weight)
+        hits.update(b['bridges'])
     rows = []
-    for n, rk in sorted(br.items(), key=lambda x: x[1])[: 2 * TOP_N]:
-        p = hit[n] / BOOT_B
-        gap = fr[n] - rk
-        c1 = rk <= TOP_N
-        c2 = p >= STABLE_P and all(n in sweep_top[kk] for kk in sweep)
-        c3 = gap >= MIN_GAP
-        rows.append((n, rk, fr[n], gap, p, c1, c2, c3))
-    passed = [r[0] for r in rows if r[5] and r[6] and r[7]][:MAX_ANCHORS]
-    if verbose:
-        print(f"{'note':22s} bc_rk fr_rk gap  P(top{TOP_N}) bridge stable value")
-        for n, rk, f, g, p, c1, c2, c3 in rows:
-            print(f"{n:22s} {rk:5d} {f:5d} {g:+4d}  {p:6.2f}   {c1!s:6} {c2!s:6} {c3!s}")
-        if passed:
-            print("ANCHORS:", passed)
-        else:
-            top = max(hit.items(), key=lambda x: x[1])
-            print(f"NO ANCHOR QUALIFIES -> FALLBACK most stable bridge: {top[0]} (P={top[1]/BOOT_B:.2f})")
-    return passed
-
-
-if __name__ == "__main__":
-    path = sys.argv[1] if len(sys.argv) > 1 else "data.xlsx"
-    apply_rule(load(path))
+    for n in sorted(a['graph'], key=lambda n: (a['br'][n], n)):
+        p = hits[n] / boot_b
+        gap = a['fr'][n] - a['br'][n]
+        bridge = n in a['bridges']
+        stable = p >= STABLE_P and all(n in b['bridges'] for b in sweeps.values())
+        rows.append(dict(note=n, frequency=a['freq'][n], frequency_rank=a['fr'][n],
+                         betweenness=a['bc'][n], betweenness_rank=a['br'][n],
+                         rank_gap=gap, bootstrap_hits=hits[n], bootstrap_runs=boot_b,
+                         bootstrap_p=p, bridge=bridge, stable=stable,
+                         sweep_all=all(n in b['bridges'] for b in sweeps.values()),
+                         passed=bridge and stable and gap >= MIN_GAP))
+    passed = [r['note'] for r in rows if r['passed']][:MAX_ANCHORS]
+    choices = [r for r in rows if r['bridge']]
+    fallback = min(choices, key=lambda r: (-r['bootstrap_p'], r['betweenness_rank'], r['note']))['note'] if choices else None
+    return dict(N=len(df), notes=a['distinct_notes'], eligible_notes=a['eligible_count'],
+                excluded_notes=a['excluded'], weight=weight, min_frequency=a['minf'],
+                k=k, nodes=len(a['graph']), edges=a['graph'].number_of_edges(),
+                density=nx.density(a['graph']), spearman=a['rho'],
+                components=sorted(map(len, nx.connected_components(a['graph'])), reverse=True),
+                positive_bridges=sum(v > EPS for v in a['bc'].values()),
+                rows=rows, passed=passed, fallback=fallback,
+                bootstrap=dict(method='whole-brand cluster bootstrap', runs=boot_b,
+                               seed=BOOT_SEED, brands=len(groups),
+                               sample_size_min=min(sample_sizes), sample_size_max=max(sample_sizes)),
+                sweep=[dict(k=cut, nodes=len(b['graph']), edges=b['graph'].number_of_edges(),
+                            top_positive_bridges=sorted(b['bridges']),
+                            gap_candidates=[n for n in sorted(b['bridges']) if b['fr'][n]-b['br'][n] >= MIN_GAP])
+                       for cut, b in sweeps.items()])
