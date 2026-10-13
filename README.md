@@ -73,3 +73,7 @@ Palaloy selects Lemon as a provisional control on 13 October, without a differen
 ## Project independence
 
 The author stated that ScentSelf is an individual IS, not a team project. The author confirmed that the team has not yet selected its capstone topic. Industry separation will be checked once the team topic is finalized; it cannot yet be verified.
+
+## Figure presentation
+
+At the author's request, the current figure restores Update3 scent-family colours and its visual orientation using fixed display coordinates. Colours show the most enriched perfume family for each note (at least 3 occurrences and lift >=1.3), not detected network communities or qualification as an anchor. Node sizes remain weighted betweenness and edge widths remain co-occurrence counts. The 20-node/23-edge graph and all amended numerical results are unchanged.

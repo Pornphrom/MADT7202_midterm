@@ -23,19 +23,21 @@ def draw(sub,out="fig_page.png"):
       return best if bl>=min_lift else "Mixed"
   analysis=dr.analyse(sets,K,5)
   bc,G=analysis['bc'],analysis['graph']
-  grp={n:('Bridge' if bc[n]>1e-12 else 'Zero betweenness') for n in G}
-  colors={'Bridge':'#2876c7','Zero betweenness':'#b9b8b2'}
+  grp={n:(dominant(n) if dominant(n) in ('Floral','Oriental','Woody') else 'Other / mixed') for n in G}
+  colors=COL
   SHORT={"Lily-of-the-Valley":"Lily-of-the-Valley"}
-  comps=sorted(nx.connected_components(G),key=len,reverse=True)
-  pos={}
-  p0=nx.kamada_kawai_layout(G.subgraph(comps[0]),weight=None)
-  for n,(x,y) in p0.items(): pos[n]=np.array([x*2.3-0.8,y*1.0])
-  slots=[(3.5,0.72),(3.5,0.0),(3.5,-0.72)]
-  for c,(cx,cy) in zip(comps[1:],slots):
-      sg=sorted(c)
-      if len(c)==2: pc={sg[0]:np.array([-0.32,0]),sg[1]:np.array([0.32,0])}
-      else: pc={sg[0]:np.array([-0.3,-0.16]),sg[1]:np.array([0.3,-0.16]),sg[2]:np.array([0.0,0.18])}
-      for n,v in pc.items(): pos[n]=np.array([cx,cy])+v
+  # Fixed display coordinates follow the archived Update3 figure orientation.
+  # They affect presentation only, never edges, centrality or decision rules.
+  pixels={'Lily-of-the-Valley':(705,135),'Oakmoss':(702,245),
+    'Lemon':(547,282),'Nutmeg':(328,217),'Pink Pepper':(228,286),
+    'Coriander':(356,387),'Peach':(882,253),'Mandarin Orange':(649,394),
+    'Tonka Bean':(843,387),'Leather':(1142,378),'Orange':(501,532),
+    'Orange Blossom':(831,513),'Pear':(943,647),'Labdanum':(1693,101),
+    'Cinnamon':(1622,198),'Incense':(1765,198),'Lavender':(1616,359),
+    'Rosemary':(1769,359),'Oud':(1622,566),'Saffron':(1769,566)}
+  if set(G)!=set(pixels):
+      raise ValueError('Update3 display layout requires the verified 20-node primary graph')
+  pos={n:np.array([x/2048*8.4-3.5,1.22-(y/790-0.01)/0.88*2.42]) for n,(x,y) in pixels.items()}
   fig,ax=plt.subplots(figsize=(7.0,2.4),dpi=300); fig.patch.set_facecolor(SURF); ax.set_facecolor(SURF)
   mx=max(d["count"] for *_,d in G.edges(data=True))
   for a,b,d in G.edges(data=True):
@@ -55,7 +57,7 @@ def draw(sub,out="fig_page.png"):
   DIRS=[(1,0),(-1,0),(0,1),(0,-1),(0.7,0.7),(-0.7,0.7),(0.7,-0.7),(-0.7,-0.7)]
   for n in sorted(G,key=lambda x:-bc[x]):
       txt=SHORT.get(n,n); best=None
-      OVR={'Oakmoss':[(0,1)],'Lemon':[(1,0)]}
+      OVR={'Oakmoss':[(0,1)],'Lemon':[(-0.7,0.7)],'Pink Pepper':[(0,-1)]}
       for d in OVR.get(n,DIRS):
           R=rect(n,txt,d); sc=0
           for m in G:

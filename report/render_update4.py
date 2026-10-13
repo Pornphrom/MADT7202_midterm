@@ -77,7 +77,7 @@ def render(path):
     image_h=WIDTH*2.4/7.0
     c.drawImage(str(ROOT/'results/fig_page.png'),M,y-image_h,width=WIDTH,height=image_h,mask='auto')
     y-=image_h
-    y=para(c,'Node size = betweenness; blue = positive betweenness; line width = pair count.',M,y)
+    y=para(c,'Node size = betweenness; colour = associated scent family; line width = pair count.',M,y)
     left=heading(c,'6  Findings',M,y,COL);right=heading(c,'7  Recommended action (proposed)',M+COL+GAP,y,COL)
     left=table(c,[['<b>Note</b>','<b>Freq.<br/>rank</b>','<b>BC<br/>rank</b>','<b>Gap</b>','<b>Top-10<br/>rate</b>']]+RANK_TABLE[1:],M,left,COL,[52,43,38,35,COL-168],True)
     left=para(c,f'<b>1.</b> Peach has a {Q["rank_gap"]:g}-rank advantage but only {Q["bootstrap_p"]:.1%} stability. Lemon is stable ({L["bootstrap_p"]:.1%}) with little rank advantage. Neither qualifies.',M,left,COL)
