@@ -1,11 +1,12 @@
-# MADT7202 Midterm - ScentSelf anchor-note analysis (Update4)
+# MADT7202 Midterm - ScentSelf anchor-note analysis
 
 Which note should founder Palaloy use as the first ScentSelf test anchor?
 
 - [One-page report (PDF)](report/MADT7202_MidTerm_Palaloy_Update4.pdf)
 - [Executed notebook](notebooks/analysis.ipynb)
 - [Computed results and sensitivity checks](results/update4_summary.json)
-- [What changed and what remains unresolved](review/UPDATE4_CHANGES.md)
+- [Method amendment](#method-amendment---13-october-2026)
+- [Collection-date evidence](docs/collection_dates.md)
 - [Windows instructions](RUN_WINDOWS.md)
 
 ## Current finding
@@ -16,7 +17,7 @@ No note meets every criterion in the primary corpus, the wider corpus, the NPMI 
 
 The author confirmed collection with Selenium from **30 August to 12 October 2026**. The primary workbook combines Fragrantica with Parfumo note supplements in 11/209 primary records (36/1,780 wider records). This is supplementation, not independent triangulation. Exact input and manifest SHA256 hashes are saved in the results JSON. Collection dates are author-reported, not independently timestamp-verified.
 
-**Source permission remains unresolved.** Fragrantica ToS section 5.3 restricts unapproved automated access; written permission was not established. Parfumo supplement permission was not established either. Coursework use and not redistributing raw data do not grant permission. The assignment's permitted-source requirement is not yet satisfied. Resolve permission or replace the data and rerun before treating this as a compliant final submission. No new scraping is performed by this repository.
+**Source permission remains unresolved.** Fragrantica ToS section 5.3 restricts unapproved automated access; written permission was not established. Parfumo ToS were not reviewed in this analysis, and supplement permission was not established either. Coursework use and not redistributing raw data do not grant permission. The assignment's permitted-source requirement is not yet satisfied. Resolve permission or replace the data and rerun before treating this as a compliant final submission. No new scraping is performed by this repository.
 
 Raw workbooks, scraped page contents and credentials are not included. To rerun, use a locally accessible workbook you are entitled to use. The versioned URL manifest selects the 209 records without requiring the separate collection-list workbook.
 
@@ -48,4 +49,27 @@ The pilot dates, 20 testers and 15-of-20 advance threshold in the report are a *
 
 ## Revision history
 
-Update4 (13 October 2026) corrects the ranking population, tie handling and bootstrap procedure after review. It does not claim preregistration. Historical Update3 outputs and the earlier review are under `archive/update3/`; the full Update3 source is in Git history. Read `review/UPDATE4_CHANGES.md` for limitations that remain.
+Update4 (13 October 2026) corrects the ranking population, tie handling and bootstrap procedure after review. It does not claim preregistration. Historical numerical Update3 outputs are under `archive/update3/`; the original source and prior review history remain in Git. Current results and amendments are documented here.
+
+## Method amendment - 13 October 2026
+
+This amendment was made **after examining the earlier results**. It replaces the earlier README/docstring claim of a frozen rule; the amended results are exploratory and must not be represented as preregistered confirmation. No numerical method changed during the subsequent report-editing pass on the same date.
+
+| Item | Earlier method (Update3) | Amended method | Reason |
+|---|---|---|---|
+| Ranking population | Frequency ranks across 89 eligible notes; betweenness ranks on 20 retained graph nodes | Both ranks on the same 20 retained nodes in the primary graph | Make rank differences comparable |
+| Ties | Alphabetical ordering for equal positive values/counts | Average ranks; round betweenness to 12 decimals for ties | Remove arbitrary alphabetical advantages |
+| Bootstrap | Draw brand blocks until N rows, then truncate the final block | Draw B entire brands with replacement for B observed brands; preserve all repeated rows | Preserve whole clusters; sample size can vary |
+| Interpretation | Stability could be read as universal support for Lemon | Main-catalogue control only; wider corpus selects Orange Blossom | Separate the shared no-pass verdict from a sample-specific control |
+
+Peach changes from frequency rank 16 / betweenness rank 6 / gap 10 to **12.5 / 6 / 6.5**. Its resampled top-10 rate is **76/300 = 25.3%**, so it still fails the stability criterion. Lemon's frequency rank is 1.5 and betweenness rank is 1, with **262/300 = 87.3%** stability. No note passes the whole rule. These revised rates are newly computed, not rounded versions of old outputs.
+
+The notebook's **Section 6** regenerates both tables printed in PDF Section 6. Notebook and renderer call the same `src/report_tables.py` function. The displayed tables are also saved as `results/section6_ranks.csv` and `results/section6_checks.csv`.
+
+## Decision and feasible proposed schedule
+
+Palaloy selects Lemon as a provisional control on 13 October, without a differentiation claim. By 23 October, prepare a costed brief for matched-base Lemon and Lemon + Peach prototypes and confirm tester availability. Target 30 October for a blinded, order-balanced 20-person pilot only if prototypes, participants and the source-permission/permitted-data rerun prerequisite are ready. Advance Peach only if at least 15 prefer it; otherwise retain control. The permission process has no assumed one-day turnaround. These are proposed actions, not completed work or calendar bookings.
+
+## Project independence
+
+The author stated that ScentSelf is an individual IS, not a team project. The team capstone industry has not yet been provided, so the separate-industry requirement is not asserted as verified. Being an individual IS alone does not establish a different domain.
