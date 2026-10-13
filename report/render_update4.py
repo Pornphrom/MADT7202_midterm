@@ -27,7 +27,7 @@ CELL=ParagraphStyle('cell',parent=BODY,leading=11.1)
 TITLE=ParagraphStyle('title',parent=BODY,fontName='Helvetica-Bold',fontSize=13.1,leading=15.2)
 HEAD=ParagraphStyle('head',parent=BODY,fontName='Helvetica-Bold',fontSize=10.2,leading=12.2,textColor=BLUE)
 
-def para(c,text,x,y,width=WIDTH,style=BODY,gap=2):
+def para(c,text,x,y,width=WIDTH,style=BODY,gap=0.5):
     p=Paragraph(text,style); _,height=p.wrap(width,1000)
     p.drawOn(c,x,y-height)
     return y-height-gap
@@ -52,7 +52,7 @@ def render(path):
     c.setAuthor('Pornphrom Rujiwatchara-oran')
     y=H-M
     y=para(c,'Which note should ScentSelf use as its first test anchor?',M,y,style=TITLE)
-    y=para(c,f'Pornphrom Rujiwatchara-oran | Student ID 6810424005 | <link href="{URL}" color="#125687">GitHub: code &amp; results</link>',M,y)
+    y=para(c,f'Pornphrom Rujiwatchara-oran | Student ID 6810424005<br/>{URL}',M,y)
     y=heading(c,'1  The decision',M,y)
     y=para(c,'Palaloy, ScentSelf founder, will select a test anchor. A stable bridge that outranks prevalence can support differentiation; otherwise use only a provisional control, with no positioning claim.',M,y)
     y=heading(c,'2  Why a network',M,y)
