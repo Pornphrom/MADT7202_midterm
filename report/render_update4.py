@@ -49,10 +49,10 @@ def render(path):
     path=Path(path);path.parent.mkdir(parents=True,exist_ok=True)
     c=canvas.Canvas(str(path),pagesize=A4)
     c.setTitle('MADT7202 Midterm - Palaloy')
-    c.setAuthor('Palaloy')
+    c.setAuthor('Pornphrom Rujiwatchara-oran')
     y=H-M
     y=para(c,'Which note should ScentSelf use as its first test anchor?',M,y,style=TITLE)
-    y=para(c,f'Palaloy | MADT7202 | <link href="{URL}" color="#125687">Code, notebook &amp; results: Pornphrom/MADT7202_midterm</link>',M,y)
+    y=para(c,f'Pornphrom Rujiwatchara-oran | Student ID 6810424005 | <link href="{URL}" color="#125687">GitHub: code &amp; results</link>',M,y)
     y=heading(c,'1  The decision',M,y)
     y=para(c,'Palaloy, ScentSelf founder, will select a test anchor. A stable bridge that outranks prevalence can support differentiation; otherwise use only a provisional control, with no positioning claim.',M,y)
     y=heading(c,'2  Why a network',M,y)
