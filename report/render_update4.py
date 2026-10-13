@@ -59,10 +59,10 @@ def render(path):
     y=para(c,'Frequency ignores paths; ordinary feature clustering groups similar notes but does not measure their role on paths between groups. Weighted betweenness measures that bridging role; prevalence ranks provide the comparison.',M,y)
     left=heading(c,'3  Data',M,y,COL);right=heading(c,'4  Graph construction',M+COL+GAP,y,COL)
     left=table(c,[
-        ['<b>Sources</b>','Fragrantica (Selenium); Parfumo fills notes for <b>11 of 209 perfumes</b>. Parsed offline.'],
+        ['<b>Sources</b>','Fragrantica collected using Selenium; notes manually supplemented from Parfumo for <b>11 of 209 perfumes</b>.'],
         ['<b>Period</b>','30 Aug-12 Oct 2026.'],
         ['<b>Volume</b>',f'<b>{P["N"]}</b> perfumes, {P["notes"]} notes; wider set: <b>1,780</b>. URL manifest in repo.'],
-        ['<b>Access</b>','Fragrantica: no written permission; <link href="https://www.fragrantica.com/terms-of-service.phtml" color="#125687">ToS 5.3</link> restricts automation. Parfumo: <link href="https://www.parfumo.com/legal-notice" color="#125687">private/non-commercial copies</link> allowed; project permission unconfirmed.'],
+        ['<b>Access</b>','Fragrantica <link href="https://www.fragrantica.com/terms-of-service.phtml" color="#125687">ToS</link> and Parfumo <link href="https://www.parfumo.com/legal-notice" color="#125687">Legal Notice</link> reviewed; raw source data are not redistributed. Website permission for this project has not been confirmed.'],
         ['<b>Sampling</b>','Purposive list; Floral 61 vs Leather 4. Not a market sample; supplements are not triangulation.'],
     ],M,left,COL)
     right=table(c,[

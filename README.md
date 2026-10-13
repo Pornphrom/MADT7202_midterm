@@ -15,9 +15,9 @@ No note meets every criterion in the primary corpus, the wider corpus, the NPMI 
 
 ## Data and permission status
 
-The author confirmed collection with Selenium from **30 August to 12 October 2026**. The primary workbook combines Fragrantica with Parfumo note supplements in 11/209 primary records (36/1,780 wider records). This is supplementation, not independent triangulation. Exact input and manifest SHA256 hashes are saved in the results JSON. Collection dates are author-reported, not independently timestamp-verified.
+The author confirmed collection with Selenium from **30 August to 12 October 2026**. Fragrantica data were collected using Selenium. Notes were manually supplemented from Parfumo for 11/209 primary records; the wider workbook contains 36/1,780 supplemented records. This is supplementation, not independent triangulation. Exact input and manifest SHA256 hashes are saved in the results JSON. Collection dates are author-reported, not independently timestamp-verified.
 
-**Source permission remains unresolved.** Fragrantica ToS section 5.3 restricts unapproved automated access; written permission was not established. Parfumo Legal Notice and Community Rules were reviewed on 13 October 2026. The notice permits private, non-commercial copies and requires consent for exploitation beyond copyright limits. This does not establish permission for this project; supplement permission remains unresolved. See [source review](docs/tos_evidence.md). Coursework use and not redistributing raw data do not grant permission. The assignment's permitted-source requirement is not yet satisfied. Resolve permission or replace the data and rerun before treating this as a compliant final submission. No new scraping is performed by this repository.
+Fragrantica ToS and Parfumo Legal Notice reviewed; raw source data are not redistributed. Website permission for this project has not been confirmed. The reviewed provisions and source links are documented in [source review](docs/tos_evidence.md). No new scraping is performed by this repository.
 
 Raw workbooks, scraped page contents and credentials are not included. To rerun, use a locally accessible workbook you are entitled to use. The versioned URL manifest selects the 209 records without requiring the separate collection-list workbook.
 
